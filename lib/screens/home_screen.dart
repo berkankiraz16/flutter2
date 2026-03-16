@@ -93,7 +93,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 context,
                 MaterialPageRoute<void>(
                   builder: (context) => CartScreen(
-                    itemCount: CartState.instance.count,
                     onClear: () => setState(() => _cartCount = CartState.instance.count),
                   ),
                 ),

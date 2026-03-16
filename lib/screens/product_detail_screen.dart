@@ -19,7 +19,7 @@ class ProductDetailScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined),
             onPressed: () {
-              CartState.instance.add();
+              CartState.instance.add(product);
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -111,7 +111,7 @@ class ProductDetailScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: FilledButton.icon(
             onPressed: () {
-              CartState.instance.add();
+              CartState.instance.add(product);
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

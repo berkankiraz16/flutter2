@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import '../state/cart_state.dart';
 
-/// Sepet ekranı (simülasyon) - proje çıktısı gereksinimi.
+/// Sepet ekranı - eklenen ürünlerin listesi gösterilir.
 class CartScreen extends StatelessWidget {
-  final int itemCount;
   final VoidCallback? onClear;
 
   const CartScreen({
     super.key,
-    required this.itemCount,
     this.onClear,
   });
 
   @override
   Widget build(BuildContext context) {
+    final cart = CartState.instance;
+    final items = cart.items;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sepet'),
         actions: [
-          if (itemCount > 0)
+          if (items.isNotEmpty)
             IconButton(
               icon: const Icon(Icons.delete_outline),
               onPressed: () {
@@ -29,7 +30,7 @@ class CartScreen extends StatelessWidget {
             ),
         ],
       ),
-      body: itemCount == 0
+      body: items.isEmpty
           ? const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -40,24 +41,26 @@ class CartScreen extends StatelessWidget {
                 ],
               ),
             )
-          : Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.shopping_cart, size: 80),
-                  const SizedBox(height: 16),
-                  Text(
-                    '$itemCount ürün (simülasyon)',
-                    style: Theme.of(context).textTheme.titleLarge,
+          : ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: items.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 8),
+              itemBuilder: (context, index) {
+                final product = items[index];
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor:
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
+                    backgroundImage: NetworkImage(product.image),
+                    onBackgroundImageError: (_, __) {},
+                    child: product.image.isEmpty
+                        ? const Icon(Icons.image_not_supported)
+                        : null,
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Bu proje eğitim amaçlıdır.\nGerçek ödeme altyapısı yoktur.',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
-              ),
+                  title: Text(product.name),
+                  subtitle: Text(product.price),
+                );
+              },
             ),
     );
   }
