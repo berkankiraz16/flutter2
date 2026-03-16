@@ -22,7 +22,7 @@ Flutter ile geliştirilmiş, eğitim amaçlı **Mini Katalog** mobil uygulaması
 ## Çalıştırma adımları
 
 1. Bu projeyi klonlayın veya indirin.
-2. Proje klasörüne gidin: `cd Flutter_Mobile_Katalog` (veya proje dizininiz).
+2. Proje klasörüne gidin: `cd flutter2` (veya proje dizininiz).
 3. Bağımlılıkları yükleyin: `flutter pub get`
 4. Android emülatörü açın (Android Studio → AVD Manager) veya fiziksel cihazı bağlayın.
 5. Uygulamayı çalıştırın: `flutter run`
